@@ -29,6 +29,7 @@ body{
     width: 100vw;
 }
 main.device{
+    overflow: hidden;
     position: relative;
     display: flex;
     justify-content: center;
