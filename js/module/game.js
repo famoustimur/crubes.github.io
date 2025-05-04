@@ -112,7 +112,7 @@ class GameJS {
         this.live_game.level = level;
         $('.game__stat-level').text('Level ' + this.live_game.level);
         if (this.live_game.transition_css != null) this.live_game.transition_css.remove();
-        this.live_game.transition_css = $(`<style>.game__timer-total,.game__timer-left.active{animation-duration:${game.params.speed}ms !important;}</style>`);
+        this.live_game.transition_css = $(`<style>.game__timer-total,.game__timer-left.active{animation-duration:${this.live_game.speed}ms !important;}</style>`);
         $('head').append(this.live_game.transition_css);
         this.live_game.level_actions_played = 0;
         clearInterval(this.live_game.levelInterval);
@@ -124,12 +124,16 @@ class GameJS {
                 this.live_game.speed = this.live_game.speed <= 500 ? 500 : this.live_game.speed - 100;
                 this.start_level(this.live_game.level);
                 $('.game__led').removeClass('destruct refuge');
+                $('.game__timer-left').removeClass('active');
                 return;
             }else if(this.live_game.level_actions_played != 0 && this.live_game.conditions.crube_clicked) {
+                $('.game__timer-left').addClass('active');
                 var temp_add_score = this.live_game.speed - (this.live_game.actions.click_date - this.live_game.actions.action_date);
                 this.live_game.clicks.push(temp_add_score);
                 this.live_game.score += (Math.floor((temp_add_score / 100) * this.live_game.xp_multiplier));
                 $('.game__stat-score').text('Score: ' + this.live_game.score);
+            }else {
+                $('.game__timer-left').addClass('active');
             }
             this.live_game.conditions.crube_clicked = false;
             if(this.live_game.conditions.current_line != null && this.live_game.conditions.current_action != null) {
@@ -170,7 +174,7 @@ class GameJS {
         this.live_game.conditions.current_line = this.line_order;
         $('.game__led').removeClass('destruct refuge');
         $($(`.game__led`)[this.line_order]).addClass('active');
-        $('.game__timer-left').addClass('active');
+        // $('.game__timer-left').addClass('active');
         // $()
         switch (action) {
             case `destruct`:
