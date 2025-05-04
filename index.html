@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css?1">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -27,64 +27,44 @@
             <div class="mainmenu__container">
                 <!-- <div class="mainmenu__logo"></div> -->
                 <p class="mainmenu__text">Crubes</p>
-                <div class="button bg_action text_light" id="playgame">Play</div>
+                <div class="button action text_light" id="playgame">Play</div>
                 <div class="button_container">
-                    <div class="button bg_black-secondary text_light" id="opensettings">Settings</div>
-                    <div class="button bg_black-secondary text_light" id="openleaderboards">Leaderboards</div>
+                    <div class="button text_light" id="opensettings">Settings</div>
+                    <div class="button text_light" id="openleaderboards">Leaderboards</div>
                 </div>
             </div>
-            <div class="mainmenu_version">Version: 0.01crbsb</div>
+            <div class="mainmenu_version">Version:</div>
         </section>
         <section id="game">
-            <div class="game__wall" id="game__wall-left">
-                <div class="game__block-container">
-                    <div class="game__block-line"></div>
-                    <div class="game__block-cube">
-                        <div class="game__block-cube-inner"></div>
-                        <div class="game__block-cube-line game__block-cube-topline"></div>
-                        <div class="game__block-cube-line game__block-cube-rightline"></div>
-                        <div class="game__block-cube-line game__block-cube-bottomline"></div>
-                        <div class="game__block-cube-line game__block-cube-leftline"></div>
-                    </div>
+            <div class="game__led"></div>
+            <div class="game__led"></div>
+            <div class="game__led"></div>
+            <div class="game__led"></div>
+            <div class="game__crubes hor">
+                <div class="game__crube active">
+                    <div class="game__crube-body"></div>
+                    <div class="game__crube-innerbody"></div>
+                </div>
+                <div class="game__crube">
+                    <div class="game__crube-body"></div>
+                    <div class="game__crube-innerbody"></div>
                 </div>
             </div>
-            <div class="game__wall" id="game__wall-top">
-                <div class="game__block-container">
-                    <div class="game__block-line"></div>
-                    <div class="game__block-cube">
-                        <div class="game__block-cube-inner"></div>
-                        <div class="game__block-cube-line game__block-cube-topline"></div>
-                        <div class="game__block-cube-line game__block-cube-rightline"></div>
-                        <div class="game__block-cube-line game__block-cube-bottomline"></div>
-                        <div class="game__block-cube-line game__block-cube-leftline"></div>
-                    </div>
+            <div class="game__crubes ver">
+                <div class="game__crube">
+                    <div class="game__crube-body"></div>
+                    <div class="game__crube-innerbody"></div>
+                </div>
+                <div class="game__crube">
+                    <div class="game__crube-body"></div>
+                    <div class="game__crube-innerbody"></div>
                 </div>
             </div>
-            <div class="game__wall" id="game__wall-right">
-                <div class="game__block-container">
-                    <div class="game__block-cube">
-                        <div class="game__block-cube-inner"></div>
-                        <div class="game__block-cube-line game__block-cube-topline"></div>
-                        <div class="game__block-cube-line game__block-cube-rightline"></div>
-                        <div class="game__block-cube-line game__block-cube-bottomline"></div>
-                        <div class="game__block-cube-line game__block-cube-leftline"></div>
-                    </div>
-                    <div class="game__block-line"></div>
-                </div>
+            <div class="game__timer">
+                <div class="game__timer-total"></div>
+                <div class="game__timer-left"></div>
             </div>
-            <div class="game__wall" id="game__wall-bottom">
-                <div class="game__block-container">
-                    <div class="game__block-cube">
-                        <div class="game__block-cube-inner"></div>
-                        <div class="game__block-cube-line game__block-cube-topline"></div>
-                        <div class="game__block-cube-line game__block-cube-rightline"></div>
-                        <div class="game__block-cube-line game__block-cube-bottomline"></div>
-                        <div class="game__block-cube-line game__block-cube-leftline"></div>
-                    </div>
-                    <div class="game__block-line"></div>
-                </div>
-            </div>
-            <div class="game__score">
+            <div class="game__stat">
                 <p class="game__stat-level">Level 1</p>
                 <p class="game__stat-score">Score: 0</p>
             </div>
@@ -97,9 +77,9 @@
                 <!-- <div class="mainmenu__logo"></div> -->
                  <div class="gameover__info">
                      <p class="gameover__title">Game over</p>
-                     <p class="gameover__text">You reached level <span id="gameover_text_level">23</span> with score <span id="gameover_text_score">854</span></p>
+                     <p class="gameover__text">You reached level <span id="gameover_text_level">[level]</span> with score <span id="gameover_text_score">[score]</span></p>
                  </div>
-                <div class="button bg_action text_light" id="playagain">Play again</div>
+                <div class="button action text_light" id="playagain">Play again</div>
                 <div class="button_container">
                     <div class="button bg_black-secondary text_light" id="openmenu">Menu</div>
                     <div class="button bg_black-secondary text_light" id="share">Share</div>
@@ -109,6 +89,9 @@
     </main>
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="script.js"></script>
+    <script src="js/module/game.js"></script>
+    <script src="js/module/platform.js"></script>
+    <script src="js/module/dialog.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
