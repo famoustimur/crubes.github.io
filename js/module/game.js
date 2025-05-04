@@ -69,6 +69,7 @@ class GameJS {
         $('.game__crube').removeClass('active');
         $('.game__led').removeClass('destruct refuge');
         this.live_game.transition_css = null;
+        $('.game__timer-left').removeClass('active');
     }
     settings(settings) {
         if(typeof settings !== 'object') return;
@@ -111,7 +112,7 @@ class GameJS {
         this.live_game.level = level;
         $('.game__stat-level').text('Level ' + this.live_game.level);
         if (this.live_game.transition_css != null) this.live_game.transition_css.remove();
-        this.live_game.transition_css = $(`<style>.game__timer-total,.game__timer-left{transition:width ${game.params.speed}ms, min-width ${game.params.speed}ms !important;}</style>`);
+        this.live_game.transition_css = $(`<style>.game__timer-total,.game__timer-left.active{animation-duration:${game.params.speed}ms !important;}</style>`);
         $('head').append(this.live_game.transition_css);
         this.live_game.level_actions_played = 0;
         clearInterval(this.live_game.levelInterval);
@@ -121,7 +122,7 @@ class GameJS {
                 this.live_game.level++;
                 this.live_game.level_actions_played = 0;
                 this.live_game.speed = this.live_game.speed <= 500 ? 500 : this.live_game.speed - 100;
-                start_level(this.live_game.level);
+                this.start_level(this.live_game.level);
                 $('.game__led').removeClass('destruct refuge');
                 return;
             }else if(this.live_game.level_actions_played != 0 && this.live_game.conditions.crube_clicked) {
@@ -162,22 +163,26 @@ class GameJS {
     }
     start_action (action) {
         this.live_game.actions.action_date = new Date().getTime();
-        var line_order = Math.floor(Math.random() * 4);
-        if($($(`.game__led`)[line_order]).hasClass('active')) line_order = (line_order+1+Math.floor(Math.random() * (3))) % 4;
-        this.live_game.conditions.current_line = line_order;
+        this.line_order = Math.floor(Math.random() * 4);
+        if(this.live_game.conditions.current_line == this.line_order) this.line_order = (this.line_order+1) % 4;
+
+        // if($($(`.game__led`)[this.line_order]).hasClass('active')) this.line_order = (this.line_order+1) % 4;
+        this.live_game.conditions.current_line = this.line_order;
         $('.game__led').removeClass('destruct refuge');
-        $($(`.game__led`)[line_order]).addClass('active');
-        $()
+        $($(`.game__led`)[this.line_order]).addClass('active');
+        $('.game__timer-left').addClass('active');
+        // $()
         switch (action) {
             case `destruct`:
-                $($(`.game__led`)[line_order]).addClass('destruct');
+                $($(`.game__led`)[this.line_order]).addClass('destruct');
+                console.log(`Destruct action`);
                 break;
             case `refuge`:
-                $($(`.game__led`)[line_order]).addClass('refuge');
+                $($(`.game__led`)[this.line_order]).addClass('refuge');
                 console.log(`Refuge action`);
                 break;
             case `motion`:
-                $($(`.game__led`)[line_order]).addClass('motion');
+                $($(`.game__led`)[this.line_order]).addClass('motion');
                 console.log(`Motion action`);
                 break;
             default:
