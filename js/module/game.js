@@ -39,6 +39,7 @@ class GameJS {
                 action_date: null
             }
         }
+        this.quotes = ["WellDone","GoodJob","DoNotTouchRed","GreebIsSafe","OnceUponATime","NeedToEndBetaTest","ImagineMuchAnimations","HaveYouLearnedTheGame","AreYouPro","DontYouGetBored","DoYouLikeTheGame","WhatCanBeHereElse","JustAQuote"];
     }
     get() {
         return this.game;
@@ -76,10 +77,23 @@ class GameJS {
         if(settings.speed && typeof settings.speed == 'number') this.game.params.speed = settings.speed;
 
     }
+    show_quote(quote = null) {
+        $('.game__timer').addClass('hiden');
+        if(quote == null) {
+            $('.game__quote').text(langJS.get(this.quotes[(Math.floor(Math.random() * this.quotes.length))]));
+        }else{
+            $('.game__quote').text(langJS.get(quote));
+        }
+        $('.game__quote').addClass('shown');
+        setTimeout(() => {
+            $('.game__timer').removeClass('hiden');
+            $('.game__quote').removeClass('shown');
+        }, this.live_game.speed);
+    }
     startGame(seconds = 0) {
         this.reset();
-        $('.game__stat-level').text(`Score: ${this.live_game.level}`);
-        $('.game__stat-score').text(`Score: ${this.live_game.score}`);
+        $('[game-stat="level"]').text(this.live_game.level);
+        $('[game-stat="score"]').text(this.live_game.score);
         clearInterval(this.live_game.levelInterval);
         this.live_game.speed = this.game.params.speed;
         this.live_game.xp_multiplier = this.game.params.xp_multiplier;
@@ -110,7 +124,7 @@ class GameJS {
         this.live_game.conditions.current_line = null;
         this.live_game.conditions.current_action = null;
         this.live_game.level = level;
-        $('.game__stat-level').text('Level ' + this.live_game.level);
+        $('[game-stat="level"]').text(this.live_game.level);
         if (this.live_game.transition_css != null) this.live_game.transition_css.remove();
         this.live_game.transition_css = $(`<style>.game__timer-total,.game__timer-left.active{animation-duration:${this.live_game.speed}ms !important;}</style>`);
         $('head').append(this.live_game.transition_css);
@@ -118,23 +132,27 @@ class GameJS {
         clearInterval(this.live_game.levelInterval);
         this.live_game.levelInterval = setInterval(() => {
             if(this.live_game.level_actions_played >= 10) {
-                game.params.xp_multiplier += 0.1;
+                this.game.params.xp_multiplier += 0.1;
                 this.live_game.level++;
                 this.live_game.level_actions_played = 0;
                 this.live_game.speed = this.live_game.speed <= 500 ? 500 : this.live_game.speed - 100;
+                this.show_quote();
+                $('.game__stat-level').addClass('levelup');
                 this.start_level(this.live_game.level);
                 $('.game__led').removeClass('destruct refuge');
                 $('.game__timer-left').removeClass('active');
                 return;
             }else if(this.live_game.level_actions_played != 0 && this.live_game.conditions.crube_clicked) {
                 $('.game__timer-left').addClass('active');
-                var temp_add_score = this.live_game.speed - (this.live_game.actions.click_date - this.live_game.actions.action_date);
+                var temp_add_score = this.live_game.actions.click_date - this.live_game.actions.action_date;
                 this.live_game.clicks.push(temp_add_score);
-                this.live_game.score += (Math.floor((temp_add_score / 100) * this.live_game.xp_multiplier));
-                $('.game__stat-score').text('Score: ' + this.live_game.score);
-            }else {
+                this.live_game.score += (Math.floor(((this.live_game.speed - temp_add_score) / 100) * this.live_game.xp_multiplier));
+                $('[game-stat="score"]').text(this.live_game.score);
+            }else if(this.live_game.level_actions_played == 0) {
+                $('.game__stat-level').removeClass('levelup');
                 $('.game__timer-left').addClass('active');
             }
+            console.log(Math.floor(Math.random() * this.quotes.length))
             this.live_game.conditions.crube_clicked = false;
             if(this.live_game.conditions.current_line != null && this.live_game.conditions.current_action != null) {
                 this.init();
@@ -194,9 +212,24 @@ class GameJS {
         }
     }
     endGame() {
+        $('main.device').addClass('dark');
+        var temp_average_reaction = Math.floor(this.live_game.clicks.reduce((a, b) => a + b, 0) / this.live_game.clicks.length);
         console.log(`Average reaction time: ${Math.floor(this.live_game.clicks.reduce((a, b) => a + b, 0) / this.live_game.clicks.length)}ms`);
-        $('#gameover_text_level').text(`${this.live_game.level}`);
-        $('#gameover_text_score').text(`${this.live_game.score}`);
+        $('[game-key="level"]').text(`${this.live_game.level}`);
+        $('[game-key="score"]').text(`${this.live_game.score}`);
+        console.log(this.game.params.speed)
+        $('.gameover__card-slider-min').removeClass('hiden');
+        if(Math.floor(temp_average_reaction / (this.game.params.speed / 100)) < 10) {
+            $('.gameover__card-slider-min').addClass('hiden');
+        }
+        $('.gameover__card-slider-max').text(`${this.game.params.speed}ms`);
+        $('.gameover__card-slider').css('width', `${Math.floor(temp_average_reaction / (this.game.params.speed / 100))}%`);
+        if(isNaN(temp_average_reaction)) {
+            $('.gameover__card-slider-text').text(`-`);
+            $('.gameover__card-slider-min').addClass('hiden');
+        }else{
+            $('.gameover__card-slider-text').text(`${temp_average_reaction}ms`);
+        }
         // $('.game__wall').remove();
         clearInterval(this.live_game.levelInterval);
         $('section').removeClass('shown');
