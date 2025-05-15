@@ -2,9 +2,9 @@ const TGMA = window.Telegram.WebApp;
 TGMA.requestFullscreen();
 TGMA.lockOrientation();
 TGMA.disableVerticalSwipes();
-$("section.safe_area").css("padding-top", `${TGMA.safeAreaInset.top+16}px`);
 $(document).ready(function() {
     setTimeout(() => {
+        $("section.safe_area").css("padding-top", `${TGMA.safeAreaInset.top+16}px`);
         $(`section`).removeClass(`shown`);
         $(`section#mainmenu`).addClass(`shown`);
         // $(`section#gameover`).addClass(`shown`);
