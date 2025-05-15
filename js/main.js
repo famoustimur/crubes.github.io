@@ -1,3 +1,7 @@
+const TGMA = window.Telegram.WebApp;
+TGMA.requestFullscreen();
+TGMA.lockOrientation();
+TGMA.disableVerticalSwipes();
 $(document).ready(function() {
     setTimeout(() => {
         $(`section`).removeClass(`shown`);
@@ -18,6 +22,13 @@ $('.button#openmenu, .button#settings_back').on(`click`, function() {
     $(`section#mainmenu`).addClass(`shown`);
 })
 $('.button#opensettings').on(`click`, function() {
+    TGMA.BackButton.show();
+    TGMA.BackButton.onClick(() => {
+        $(`section`).removeClass(`shown`);
+        $(`section#mainmenu`).addClass(`shown`);
+        TGMA.BackButton.hide();
+        TGMA.BackButton.offClick();
+    });
     $(`section`).removeClass(`shown`);
     $(`section#settings`).addClass(`shown`);
 });
