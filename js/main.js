@@ -2,6 +2,7 @@ const TGMA = window.Telegram.WebApp;
 TGMA.requestFullscreen();
 TGMA.lockOrientation();
 TGMA.disableVerticalSwipes();
+$(".safe_area").css("padding-top", `${TGMA.safeAreaInset.top+16}px`)
 $(document).ready(function() {
     setTimeout(() => {
         $(`section`).removeClass(`shown`);
