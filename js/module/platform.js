@@ -1,7 +1,7 @@
 class PlatformJS {
   constructor() {
     this.platform = {
-      version : '0.03.07b',
+      version : '0.03.08b',
       name : 'Crubes'
     };
   }

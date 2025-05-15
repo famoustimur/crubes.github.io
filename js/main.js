@@ -2,6 +2,11 @@ const TGMA = window.Telegram.WebApp;
 TGMA.requestFullscreen();
 TGMA.lockOrientation();
 TGMA.disableVerticalSwipes();
+const alreadyLoaded = sessionStorage.getItem('reloaded');
+if (!alreadyLoaded) {
+  sessionStorage.setItem('reloaded', '1');
+  location.reload(true);
+}
 $(document).ready(function() {
     setTimeout(() => {
         $("section.safe_area").css("padding-top", `${TGMA.safeAreaInset.top+256}px`);
