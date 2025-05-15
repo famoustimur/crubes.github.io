@@ -4,7 +4,7 @@ TGMA.lockOrientation();
 TGMA.disableVerticalSwipes();
 $(document).ready(function() {
     setTimeout(() => {
-        $("section.safe_area").css("padding-top", `${TGMA.safeAreaInset.top+128}px`);
+        $("section.safe_area").css("padding-top", `${TGMA.safeAreaInset.top+256}px`);
         $(`section`).removeClass(`shown`);
         $(`section#mainmenu`).addClass(`shown`);
         // $(`section#gameover`).addClass(`shown`);
