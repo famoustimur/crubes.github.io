@@ -1,18 +1,23 @@
 const TGMA = window.Telegram.WebApp;
-TGMA.requestFullscreen();
-TGMA.lockOrientation();
-TGMA.disableVerticalSwipes();
+if(TGMA.platform != "tdekstop") {
+    TGMA.requestFullscreen();
+    TGMA.lockOrientation();
+    TGMA.disableVerticalSwipes();
+}
+TGMA.enableClosingConfirmation();
+
 const alreadyLoaded = sessionStorage.getItem('reloaded');
 if (!alreadyLoaded) {
   sessionStorage.setItem('reloaded', '1');
   location.reload(true);
 }
+
 $(document).ready(function() {
     setTimeout(() => {
         $("section.safe_area").css("padding-top", `${TGMA.safeAreaInset.top+16}px`);
         $(`section`).removeClass(`shown`);
         $(`section#mainmenu`).addClass(`shown`);
-        // $(`section#gameover`).addClass(`shown`);
+        // $(`section#game`).addClass(`shown`);
         // $('.game__overlay').removeClass('active');
     }, 1000);
 });
@@ -30,6 +35,7 @@ $('.button#openmenu, .button#settings_back').on(`click`, function() {
 $('.button#opensettings').on(`click`, function() {
     TGMA.BackButton.show();
     TGMA.BackButton.onClick(() => {
+        if (!settingsJS.isSaved()) settingsJS.save();
         $(`section`).removeClass(`shown`);
         $(`section#mainmenu`).addClass(`shown`);
         TGMA.BackButton.hide();
@@ -37,6 +43,21 @@ $('.button#opensettings').on(`click`, function() {
     });
     $(`section`).removeClass(`shown`);
     $(`section#settings`).addClass(`shown`);
+});
+$('.button#openskins').on(`click`, function() {
+    TGMA.BackButton.show();
+    TGMA.BackButton.onClick(() => {
+        if (!$("#skins_save").hasClass("hiden")) {
+            gameJS.settings({skin : $(".skins__card.active").attr('crube-skin')});
+            $("#skins_save").addClass("hiden");
+        }
+        $(`section`).removeClass(`shown`);
+        $(`section#mainmenu`).addClass(`shown`);
+        TGMA.BackButton.hide();
+        TGMA.BackButton.offClick();
+    });
+    $(`section`).removeClass(`shown`);
+    $(`section#skins`).addClass(`shown`);
 });
 $('.button#openleaderboards').on(`click`, function() {
     dialogJS.show(`Error`, `LeaderboardsAreNotAvailableYet`, true);

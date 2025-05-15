@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="css/style.css?v=0.03b">
+    <link rel="stylesheet" href="css/style.css?v=0.04b">
+    <link rel="stylesheet" href="css/skins/modern.css?v=0.04b">
+    <link rel="stylesheet" href="css/skins/old.css?v=0.04b">
+    <link rel="stylesheet" href="css/skins/lunary.css?v=0.04b">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -28,14 +28,19 @@
             </div>
         </section>
         <section id="mainmenu">
+            <!-- <img src="https://t.me/i/userpic/320/ktpJlUanxUzcRiLNOnggMu6so133A1uXp9kXWulnB6c.svg" alt="" class="temdd"> -->
             <div class="mainmenu__container">
                 <!-- <div class="mainmenu__logo"></div> -->
                 <p class="mainmenu__text">Crubes</p>
-                <div class="button action text_light" id="playgame" locale="Play">Play</div>
+                <div class="button action button_big" id="playgame" locale="Play">Play</div>
                 <div class="button_container">
-                    <div class="button text_light" id="opensettings" locale="Settings">Settings</div>
-                    <div class="button text_light" id="openleaderboards" locale="Leaderboards">Leaderboards</div>
+                    <div class="button" id="opensettings" locale="Settings">Settings</div>
+                    <div class="button" id="openskins" locale="Skins">Skins</div>
                 </div>
+                <!-- <div class="button_container">
+                    <div class="button" id="openstatistics" locale="Statistics">Statistics</div>
+                    <div class="button" id="opennews" locale="News">News</div>
+                </div> -->
             </div>
             <div class="mainmenu_version"><span locale="Version"></span><span id="mainmenu_vers"></span></div>
             <!-- <div class="mainmenu_early_access">Early access</div> -->
@@ -47,20 +52,24 @@
             <div class="game__led"></div>
             <div class="game__crubes hor">
                 <div class="game__crube active">
+                    <div class="game__crube-additional"></div>
                     <div class="game__crube-body"></div>
                     <div class="game__crube-innerbody"></div>
                 </div>
                 <div class="game__crube">
+                    <div class="game__crube-additional"></div>
                     <div class="game__crube-body"></div>
                     <div class="game__crube-innerbody"></div>
                 </div>
             </div>
             <div class="game__crubes ver">
                 <div class="game__crube">
+                    <div class="game__crube-additional"></div>
                     <div class="game__crube-body"></div>
                     <div class="game__crube-innerbody"></div>
                 </div>
                 <div class="game__crube">
+                    <div class="game__crube-additional"></div>
                     <div class="game__crube-body"></div>
                     <div class="game__crube-innerbody"></div>
                 </div>
@@ -78,7 +87,7 @@
                 <p class="game__overlay-text">Game starts in <span>3</span></p>
             </div>
         </section>
-        <section id="gameover" class="safe_area">
+        <section id="gameover">
             <div class="gameover__container">
                 <!-- <div class="gameover__item-container"></div> -->
                     <div class="gameover__item-container">
@@ -120,9 +129,8 @@
                 <!-- <div class="button action" id="playagain">Play again</div> -->
             </div>
         </section>
-        <section id="settings" class="safe_area">
-            <div class="button settings__button shown" id="settings_back" locale="Back">Back</div>
-            <div class="button action settings__button" id="settings_save" locale="SaveAndBack">Save & Back</div>
+        <section id="settings">
+            <div class="button action settings__button" id="settings_save" locale="Save">Save</div>
             <div class="settings__container">
                 <p class="settings__title" locale="Settings">Settings</p>
                 <div class="settings__card">
@@ -142,14 +150,38 @@
                 </div>
             </div>
         </section>
+        <section id="skins">
+            <!-- <div class="button settings__button shown" id="settings_back" locale="Back">Back</div> -->
+            <div class="button action skins__button hiden" id="skins_save" locale="Save">Save</div>
+            <p class="skins__title">Skins</p>
+            <div class="skins__select-container">
+                <div class="button action skins__select-button" locale="Crubes">Crubes</div>
+                <div class="button skins__select-button" locale="Timer">Timer</div>
+                <div class="button skins__select-button" locale="Statistics">Statistics</div>
+            </div>
+            <div class="skins__cards">
+                <div class="skins__card active" crube-skin="default">
+                    <img src="content/skins/default.png" alt="">
+                </div>
+                <div class="skins__card" crube-skin="modern">
+                    <img src="content/skins/modern.png" alt="">
+                </div>
+                <div class="skins__card" crube-skin="old">
+                    <img src="content/skins/old.png" alt="">
+                </div>
+                <div class="skins__card" crube-skin="lunary">
+                    <img src="content/skins/lunary.png" alt="">
+                </div>
+            </div>
+        </section>
     </main>
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/module/game.js?v=0.03b"></script>
-    <script src="js/module/platform.js?v=0.03.09b"></script>
-    <script src="js/module/dialog.js?v=0.03b"></script>
-    <script src="js/module/language.js?v=0.03b"></script>
-    <script src="js/module/settings.js?v=0.03b"></script>
-    <script src="js/main.js?v=0.03.09b"></script>
+    <script src="js/module/game.js?v=0.04b"></script>
+    <script src="js/module/platform.js?v=0.04b"></script>
+    <script src="js/module/dialog.js?v=0.04b"></script>
+    <script src="js/module/language.js?v=0.04b"></script>
+    <script src="js/module/settings.js?v=0.04b"></script>
+    <script src="js/main.js?v=0.04b"></script>
 </body>
 </html>

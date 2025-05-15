@@ -1,0 +1,29 @@
+.game__crube.crube-modern .game__crube-body {
+    border-radius: .5rem;
+}
+.game__crube.crube-modern::before{
+    width: calc(100% + .75rem);
+    height: .5rem;
+    border-left: .125rem solid var(--background-dark-main);
+    border-right: .125rem solid var(--background-dark-main);
+}
+.game__crube.crube-modern::after{
+    height: calc(100% + .75rem);
+    width: .5rem;
+    border-top: .125rem solid var(--background-dark-main);
+    border-bottom: .125rem solid var(--background-dark-main);
+}
+.game__crube.crube-modern.active .game__crube-innerbody{
+    opacity: 1;
+}
+.game__crube.crube-modern.active .game__crube-body{
+    width: 2rem;
+    height: 2rem;
+    border-color: var(--text-gray);
+}
+.game__crube.crube-modern.active::before, .game__crube.crube-modern.active::after{
+    border-color: var(--text-light) !important;
+}
+.game__crube.crube-modern.active::after, .game__crube.crube-modern.active::before{
+    opacity: 0;
+}

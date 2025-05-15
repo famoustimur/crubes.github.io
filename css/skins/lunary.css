@@ -1,0 +1,76 @@
+.game__crube.crube-lunary .game__crube-body {
+    border-color: var(--background-dark-main);
+    border-radius: 1rem;
+}
+.game__crube.crube-lunary::before{
+    width: calc(100% + .75rem);
+    height: .25rem;
+    border-left: .125rem solid var(--background-black-secondary);
+    border-right: .125rem solid var(--background-black-secondary);
+}
+.game__crube.crube-lunary::after{
+    height: calc(100% + .75rem);
+    width: .25rem;
+    border-top: .125rem solid var(--background-black-secondary);
+    border-bottom: .125rem solid var(--background-black-secondary);
+}
+.game__crube.crube-lunary .game__crube-additional::before{
+    width: .5rem;
+    height: .5rem;
+    border-radius: .25rem;
+    background: var(--background-dark-main);
+    top: 100%;
+    transform: translateY(.625rem);
+}
+.game__crube.crube-lunary .game__crube-additional::after{
+    width: .5rem;
+    height: .5rem;
+    border-radius: .25rem;
+    background: var(--background-dark-main);
+    bottom: 100%;
+    transform: translateY(-.625rem);
+}
+.game__crube-body::before, .game__crube-body::after{
+    transition: .5s;
+    content: '';
+    background: transparent;
+    position: absolute;
+}
+.game__crube.crube-lunary .game__crube-body::before{
+    width: .5rem;
+    height: .5rem;
+    border-radius: .25rem;
+    background: var(--background-dark-main);
+    left: 100%;
+    transform: translatex(.75rem);
+}
+.game__crube.crube-lunary .game__crube-body::after{
+    width: .5rem;
+    height: .5rem;
+    border-radius: .25rem;
+    background: var(--background-dark-main);
+    right: 100%;
+    transform: translatex(-.75rem);
+}
+
+.game__crube.crube-lunary.active .game__crube-body{
+    width: 2rem;
+    height: 2rem;
+    border-width: .25rem;
+    border-color: var(--text-light);
+}
+.game__crube.crube-lunary.active::before, .game__crube.crube-lunary.active::after{
+    border-color: var(--text-gray) !important;
+}
+.game__crube.crube-lunary.active .game__crube-body::after, .game__crube.crube-lunary.active .game__crube-body::before, .game__crube.crube-lunary.active .game__crube-additional::after, .game__crube.crube-lunary.active .game__crube-additional::before{
+    background-color: var(--text-light);
+}
+.game__crube.crube-lunary.active .game__crube-body::after{
+    transform: translatex(-.875rem);
+}
+.game__crube.crube-lunary.active .game__crube-body::before{
+    transform: translatex(.875rem);
+}
+.game__crube.crube-lunary.active .game__crube-innerbody{
+    opacity: 0;
+}

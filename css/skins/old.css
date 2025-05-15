@@ -1,0 +1,25 @@
+.game__crube.crube-old .game__crube-body {
+    border-radius: .25rem;
+    background-color: #222;
+    border-width: 1px;
+}
+.game__crube.crube-old .game__crube-innerbody {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 1rem;
+    background-color: #444;
+    border: 1px solid #636363;
+    opacity: 1;
+}
+.game__crube.crube-old.active .game__crube-innerbody{
+    background-color: var(--background-action);
+    border-color: var(--text-light);
+}
+.game__crube.crube-old.active .game__crube-body{
+    width: 2rem;
+    height: 2rem;
+    border-color: var(--text-gray);
+}
+.game__crube.crube-old.active::before, .game__crube.crube-old.active::after{
+    border-color: var(--text-light) !important;
+}

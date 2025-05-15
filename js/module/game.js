@@ -8,6 +8,7 @@ class GameJS {
                 score: {}
             },
             params : {
+                current_skin: "default",
                 crubes : [],
                 wallsLeft : 4,
                 walls : null,
@@ -22,6 +23,7 @@ class GameJS {
             }
         };
         this.live_game = {
+            current_skin: "default",
             levelInterval : 0,
             level : 1,
             score : 0,
@@ -39,6 +41,7 @@ class GameJS {
                 action_date: null
             }
         }
+        this.skins = ["default", "modern", "old", "lunary"];
         this.quotes = ["WellDone","GoodJob","DoNotTouchRed","GreebIsSafe","OnceUponATime","NeedToEndBetaTest","ImagineMuchAnimations","HaveYouLearnedTheGame","AreYouPro","DontYouGetBored","DoYouLikeTheGame","WhatCanBeHereElse","JustAQuote"];
     }
     get() {
@@ -56,6 +59,22 @@ class GameJS {
         //     $(this).addClass('active');
         // });
         var temp_livegame = this.live_game;
+        if(settingsJS.get().skin) {
+            $(".game__crube").removeClass(this.skins.join(' '));
+            $(".game__crube").addClass("crube-"+settingsJS.get().skin);
+            $(".skins__card").removeClass('active');
+            $(`[crube-skin="${settingsJS.get().skin}"]`).addClass("active");
+        }
+        $(".skins__card").on(`click`, function() {
+            $(".skins__card").removeClass('active');
+            $(this).addClass('active');
+            $("#skins_save").removeClass('hiden');
+        });
+        $("#skins_save").on(`click`, function() {
+            gameJS.settings({skin : $(".skins__card.active").attr('crube-skin')});
+            settingsJS.save({skin: $(".skins__card.active").attr('crube-skin')});
+            $(this).addClass('hiden');
+        });
         $('.game__crube').on(`click`, function() {
             temp_livegame.conditions.crube_clicked = true;
             temp_livegame.actions.click_date = new Date().getTime();
@@ -75,6 +94,14 @@ class GameJS {
     settings(settings) {
         if(typeof settings !== 'object') return;
         if(settings.speed && typeof settings.speed == 'number') this.game.params.speed = settings.speed;
+        if(settings.skin && typeof settings.skin == 'string' && this.skins.includes(settings.skin)) {
+            $(".game__crube").removeClass(this.skins.join(' '));
+            $(".game__crube").addClass("crube-"+settings.skin);
+            this.game.params.current_skin = settings.skin;
+            this.live_game.current_skin = settings.skin;
+            // var temp_settings = settingsJS.get();
+            // temp_settings.skin = $(".skins__card.active").attr('crube-skin');
+        }
 
     }
     show_quote(quote = null) {
@@ -217,8 +244,7 @@ class GameJS {
         console.log(`Average reaction time: ${Math.floor(this.live_game.clicks.reduce((a, b) => a + b, 0) / this.live_game.clicks.length)}ms`);
         $('[game-key="level"]').text(`${this.live_game.level}`);
         $('[game-key="score"]').text(`${this.live_game.score}`);
-        console.log(this.game.params.speed)
-        $('.gameover__card-slider-min').removeClass('hiden');
+        $('.gameover__card-slider-min, .gameover__card-slider-max').removeClass('hiden');
         if(Math.floor(temp_average_reaction / (this.game.params.speed / 100)) < 10) {
             $('.gameover__card-slider-min').addClass('hiden');
         }
@@ -227,7 +253,12 @@ class GameJS {
         if(isNaN(temp_average_reaction)) {
             $('.gameover__card-slider-text').text(`-`);
             $('.gameover__card-slider-min').addClass('hiden');
-        }else{
+        }else if(Math.floor(temp_average_reaction / (this.game.params.speed / 100)) < 10) {
+            $('.gameover__card-slider-min').addClass('hiden');
+        }else if(Math.floor(temp_average_reaction / (this.game.params.speed / 100)) > 80) {
+            $('.gameover__card-slider-max').addClass('hiden');
+        }
+        if(!isNaN(temp_average_reaction)) {
             $('.gameover__card-slider-text').text(`${temp_average_reaction}ms`);
         }
         // $('.game__wall').remove();

@@ -22,7 +22,10 @@ html{
     --background-dark-secondary: #333;
     --background-action: #2072AF;
     --button-color-action: linear-gradient(135deg, #2072AF 0%, #1D6F9F 100%);
+    --button-border-action: linear-gradient(135deg, #5FA6DB 0%, #3A88B5 100%);
     --button-color-default: linear-gradient(135deg, #292929 0%, #212121 100%);
+    --button-border-default: linear-gradient(135deg, #343434 0%, #262626 100%);
+    --button-box-shadow-default: .25rem .25rem .25rem 0 #00000024;
 }
 body{
     background-color: #112;
@@ -31,6 +34,13 @@ body{
     align-items: center;
     height: 100vh;
     width: 100vw;
+}
+.temdd {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5rem;
+    height: 5rem;
 }
 main.device{
     overflow: hidden;
@@ -80,7 +90,7 @@ section.shown{
     font-size: 2rem;
     font-weight: 400;
     letter-spacing: 2px;
-    font-family: "Rubik Gemstones", sans-serif;
+    font-family: "Poppins", sans-serif;
     text-align: center;
 }
 .mainmenu__container{
@@ -101,20 +111,26 @@ section.shown{
     width: 100%;
 }
 .button{
+    box-shadow: var(--button-box-shadow-default);
     font-weight: 400;
     text-align: center;
-    background: var(--button-color-default);
+    background: var(--button-color-default) padding-box, var(--button-border-default) border-box;
     color: var(--text-light);
-    font-size: 1rem;
-    padding: 8px 16px;
+    font-size: .875rem;
+    padding: .5rem 1rem;
     width: 100%;
-    border-radius: .25rem;
+    border-radius: .5rem;
+    border: 1px solid transparent;
     cursor: pointer;
     transition: .3s;
 }
 .button.action {
-    background: var(--button-color-action);
+    background: var(--button-color-action) padding-box, var(--button-border-action) border-box;
     color: var(--text-light);
+}
+.button.button_big {
+    font-weight: 500;
+    font-size: 1rem;
 }
 .mainmenu_version{
     font-size: .75rem;
@@ -177,6 +193,23 @@ section.shown{
     background: transparent;
     position: absolute;
 }
+.game__crube-additional{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transition: .5s;
+    position: absolute;
+}
+.game__crube-additional::before, .game__crube-additional::after{
+    transition: .5s;
+    content: '';
+    background: transparent;
+    position: absolute;
+}
 .game__crube::before{
     width: calc(100% + 1.5rem);
     height: .125rem;
@@ -209,8 +242,8 @@ section.shown{
     height: 1.5rem;
     border-color: var(--text-gray);
 }
-.game__crube.active .game__crube-body::before, .game__crube.active .game__crube-body::after{
-    border-color: var(--text-light);
+.game__crube.active::before, .game__crube.active::after{
+    border-color: var(--text-light) !important;
 }
 .game__quote{
     opacity: 0;
@@ -285,7 +318,7 @@ section.shown{
     color: var(--text-light);
     background: #25252580;
     backdrop-filter: blur(1rem);
-    border-radius: 1rem;
+    border-radius: .5rem;
 }
 .game__stat-level.levelup {
     background: #fdbd5764;
@@ -425,14 +458,16 @@ section.shown{
     align-items: center;
     height: 2rem;
     width: 100%;
-    background: var(--button-color-default);
+    background: var(--button-color-default) padding-box, var(--button-border-default) border-box;
+    border: 1px solid transparent;
+    box-shadow: var(--button-box-shadow-default);
     border-radius: .25rem;
     font-size: .875rem;
     font-weight: 400;
     color: var(--text-light);
 }
 .settings__card-button.active{
-    background: var(--button-color-action);
+    background: var(--button-color-action) padding-box, var(--button-border-action) border-box;
     color: var(--text-light);
 }
 .settings__button{
@@ -473,13 +508,13 @@ section.shown{
 }
 .gameover__title{
     color: var(--text-light);
-    font-size: .875rem;
+    font-size: 1rem;
     font-weight: 500;
     text-align: center;
 }
 .gameover__text{
     color: var(--text-gray);
-    font-size: .75rem;
+    font-size: .875rem;
     font-weight: 400;
     text-align: center;
 }
@@ -537,8 +572,9 @@ section.shown{
     align-items: center;
     padding: 0 1rem;
     background: linear-gradient(135deg, #34343480 0%, #25252580 100%);
-    border-radius: .25rem;
+    border-radius: .5rem;
     color: var(--text-light);
+    box-shadow: 0 .25rem 1rem 0 #00000024;
     font-size: 1rem;
     font-weight: 400;
     width: 100%;
@@ -550,7 +586,7 @@ section.shown{
     height: .5rem;
     background: linear-gradient(135deg, #44444480 0%, #38383880 100%);
     /* background: var(--background-black-main); */
-    border-radius: .25rem;
+    border-radius: .125rem;
     color: var(--text-light);
     font-size: .75rem;
     font-weight: 400;
@@ -561,7 +597,7 @@ section.shown{
     width: 0%;
     height: 100%;
     background: var(--text-info);
-    border-radius: 1rem;
+    border-radius: .125rem;
     position: relative;
     display: flex;
     align-items: center;
@@ -570,7 +606,7 @@ section.shown{
     content: '';
     position: absolute;
     background: var(--text-light);
-    border-radius: 1rem;
+    border-radius: .25rem;
     width: 1rem;
     height: 1rem;
     right: -1rem;
@@ -595,11 +631,65 @@ section.shown{
     font-weight: 400;
     text-align: center;
 }
-.gameover__card-slider-min.hiden{
+.gameover__card-slider-min.hiden, .gameover__card-slider-max.hiden{
     opacity: 0;
     pointer-events: none;
 }
 
+/* SKINS */
+
+section#skins{
+    gap: 1rem 0;;
+}
+.skins__title {
+    color: var(--text-light);
+    font-size: 1rem;
+    font-weight: 400;
+    width: 100%;
+    text-align: center;
+}
+.skins__button {
+    transition: .5s;
+    position: absolute;
+    bottom: 1.5rem;
+    width: calc(100% - 2rem);
+}
+.skins__button.hiden {
+    transform: scale(0);
+    pointer-events: none;
+}
+.skins__select-container {
+    display: flex;
+    width: 100%;
+    gap: 0 1rem;
+}
+.skins__cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    width: 100%;
+}
+.skins__card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(25vw - 1.625rem);
+    height: calc(25vw - 1.625rem);
+    padding: 1rem;
+    background: linear-gradient(135deg, #252525 0%, #171717 100%) padding-box, linear-gradient(135deg, #343434 0%, #262626 100%) border-box;
+    border: 1px solid transparent;
+    border-radius: .5rem;
+    box-shadow: 0 .25rem 1rem 0 #00000024;
+}
+.skins__card.active {
+    background: linear-gradient(135deg, #414141 0%, #313131 100%) padding-box, linear-gradient(135deg, #AAA 0%, #FFF 100%) border-box;
+    border: 1px solid transparent;
+    box-shadow: 0 .25rem 1rem 0 #2072AF24;
+}
+.skins__card img {
+    width: 100%;
+    height: 100%;
+}
 
 /* DIALOG */
 
