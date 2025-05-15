@@ -9,7 +9,7 @@ if (!alreadyLoaded) {
 }
 $(document).ready(function() {
     setTimeout(() => {
-        $("section.safe_area").css("padding-top", `${TGMA.safeAreaInset.top+256}px`);
+        $("section.safe_area").css("padding-top", `${TGMA.safeAreaInset.top+16}px`);
         $(`section`).removeClass(`shown`);
         $(`section#mainmenu`).addClass(`shown`);
         // $(`section#gameover`).addClass(`shown`);
